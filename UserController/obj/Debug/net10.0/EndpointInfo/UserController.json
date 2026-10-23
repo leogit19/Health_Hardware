@@ -1,0 +1,477 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "UserController",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/Diagnostics": {
+      "get": {
+        "tags": [
+          "Diagnostics"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/HardwareReport"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HardwareReport"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HardwareReport"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/WeatherForecast": {
+      "get": {
+        "tags": [
+          "WeatherForecast"
+        ],
+        "operationId": "GetWeatherForecast",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BatteryInfo": {
+        "type": "object",
+        "properties": {
+          "present": {
+            "type": "boolean"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "chargePercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "designCapacityMWh": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fullChargeCapacityMwh": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "healthPercentage": {
+            "type": "number",
+            "format": "double"
+          },
+          "wearPercentage": {
+            "type": "number",
+            "format": "double"
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CmosInfo": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "batteryStatus": {
+            "type": "string",
+            "nullable": true
+          },
+          "biosManufacturer": {
+            "type": "string",
+            "nullable": true
+          },
+          "biosversion": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CpuInfo": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "loadPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "cores": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "logicalProcessors": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "maxClockSpeedMhz": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "l3CacheMb": {
+            "type": "number",
+            "format": "double"
+          },
+          "singlCoreScore": {
+            "type": "number",
+            "format": "double"
+          },
+          "multiCoreScore": {
+            "type": "number",
+            "format": "double"
+          },
+          "performanceTier": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "isWorkingOk": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DiskInfo": {
+        "type": "object",
+        "properties": {
+          "model": {
+            "type": "string",
+            "nullable": true
+          },
+          "sizeGb": {
+            "type": "number",
+            "format": "double"
+          },
+          "interfaceType": {
+            "type": "string",
+            "nullable": true
+          },
+          "isHealthy": {
+            "type": "boolean"
+          },
+          "healthPercentage": {
+            "type": "number",
+            "format": "double"
+          },
+          "predictFailure": {
+            "type": "boolean"
+          },
+          "smartStatus": {
+            "type": "string",
+            "nullable": true
+          },
+          "healthRecommendation": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "FanInfo": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "isWorkingOk": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "GpuInfo": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "driverVersion": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "isWorkingOk": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "HardwareReport": {
+        "type": "object",
+        "properties": {
+          "machineName": {
+            "type": "string",
+            "nullable": true
+          },
+          "scanDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "battery": {
+            "$ref": "#/components/schemas/BatteryInfo"
+          },
+          "ram": {
+            "$ref": "#/components/schemas/RamInfo"
+          },
+          "disks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DiskInfo"
+            },
+            "nullable": true
+          },
+          "cmos": {
+            "$ref": "#/components/schemas/CmosInfo"
+          },
+          "cpu": {
+            "$ref": "#/components/schemas/CpuInfo"
+          },
+          "gpus": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GpuInfo"
+            },
+            "nullable": true
+          },
+          "motherboard": {
+            "$ref": "#/components/schemas/MotherboardInfo"
+          },
+          "fans": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FanInfo"
+            },
+            "nullable": true
+          },
+          "network": {
+            "$ref": "#/components/schemas/NetworkModuleInfo"
+          }
+        },
+        "additionalProperties": false
+      },
+      "MotherboardInfo": {
+        "type": "object",
+        "properties": {
+          "manufacturer": {
+            "type": "string",
+            "nullable": true
+          },
+          "product": {
+            "type": "string",
+            "nullable": true
+          },
+          "serialNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "isWorkingOk": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "NetworkModuleInfo": {
+        "type": "object",
+        "properties": {
+          "wifi": {
+            "$ref": "#/components/schemas/WirelessDevice"
+          },
+          "bluetooth": {
+            "$ref": "#/components/schemas/WirelessDevice"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RamInfo": {
+        "type": "object",
+        "properties": {
+          "totalGb": {
+            "type": "number",
+            "format": "double"
+          },
+          "freeGb": {
+            "type": "number",
+            "format": "double"
+          },
+          "usedGb": {
+            "type": "number",
+            "format": "double"
+          },
+          "usagePercentage": {
+            "type": "number",
+            "format": "double"
+          },
+          "isHealthy": {
+            "type": "boolean"
+          },
+          "healthStatus": {
+            "type": "string",
+            "nullable": true
+          },
+          "totalModulesFound": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "modules": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RamModuleDetail"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RamModuleDetail": {
+        "type": "object",
+        "properties": {
+          "bankLabel": {
+            "type": "string",
+            "nullable": true
+          },
+          "manufacturer": {
+            "type": "string",
+            "nullable": true
+          },
+          "capacityGb": {
+            "type": "number",
+            "format": "double"
+          },
+          "speedMhz": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "isWorking": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "WeatherForecast": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "temperatureC": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "temperatureF": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "summary": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "WirelessDevice": {
+        "type": "object",
+        "properties": {
+          "found": {
+            "type": "boolean"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "technology": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "isWorkingOk": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Diagnostics"
+    },
+    {
+      "name": "WeatherForecast"
+    }
+  ]
+}
